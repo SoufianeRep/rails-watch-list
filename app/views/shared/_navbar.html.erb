@@ -1,0 +1,31 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to root_path, class: 'navbar-brand' do  %>
+      <%= image_tag 'https://cdn.cdnlogo.com/logos/n/82/netflix.png', alt: "text", class: 'w-25 l-25 text-decoration-none' %>
+    <% end %>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item active">
+          <%= link_to new_list_path, class: 'text-decoration-none' do %>
+            <p class="d-flex">
+              <i class="fa-solid fa-plus fs-1 text-danger "></i>
+            </p>
+          <% end %>
+        </li>
+        <%# <li class="nav-item">
+          <a class="nav-link" href="#">Messages</a>
+        </li>
+        <li class="nav-item dropdown">
+          <img class="avatar dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="https://kitt.lewagon.com/placeholder/users/ssaunier" />
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" data-turbo-method="delete" href="#">Log out</a>
+          </div>
+        </li> %>
+        <!--li class="nav-item"-->
+        <!--/li-->
+      </ul>
+    </div>
+  </div>
+</div>

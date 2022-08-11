@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row justify-content-center text-light">
+    <div class="col col-6">
+      <h1>Add a Bookmark</h1>
+      <%= simple_form_for([@list, @bookmark]) do |f| %>
+        <%= f.input :comment %>
+        <%= f.association :movie %>
+        <%= f.submit 'Add a bookmark', class: 'btn btn-danger'%>
+      <% end %>
+    </div>
+  </div>
+</div>

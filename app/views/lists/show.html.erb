@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="mt-5 p-4">
+    <h1><%= @list.name.capitalize %></h1>
+    <div class="container mb-5 p-4 d-flex justify-content-center">
+      <%= link_to 'Add A Bookmark', new_list_bookmark_path(@list), class: 'btn btn-danger'%>
+    </div>
+    <div class="container">
+      <div class="d-flex gap-5 flex-wrap justify-content-between">
+        <% @list.bookmarks.each do |bookmark| %>
+          <div class="list-card d-flex flex-column justify-content-between">
+            <div class="bookmark-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= bookmark.movie.poster_url%>)">
+              <%= bookmark.movie.title %>
+            </div>
+            <div class="movie-description">
+              <p><%= bookmark.movie.overview %></p>
+            </div>
+            <%= link_to 'Delete', bookmark_path(bookmark),
+             data: { turbo_method: :delete, turbo_confirm: 'Delete this bookmark?'},
+             class: 'btn btn-danger'
+          %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

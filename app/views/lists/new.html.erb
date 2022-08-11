@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row justify-content-center text-light">
+    <div class="col col-6">
+      <h1>Create a new List</h1>
+      <%= simple_form_for(@list) do |f| %>
+        <%= f.input :name%>
+        <%= f.submit 'Add a playlist', class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
+</div>
