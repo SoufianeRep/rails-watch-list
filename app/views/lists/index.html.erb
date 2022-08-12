@@ -1,6 +1,6 @@
 <div class="banner">
   <div class="container text-light">
-    <h1>Just like NEFLIX but better</h1>
+    <h1>Just like NETFLIX but better</h1>
     <p>Change your life. Make movie playlists.</p>
     <%= link_to 'Add a Playlist', new_list_path, class: "btn btn-danger" %>
   </div>
@@ -11,15 +11,9 @@
     <% @lists.each do |list| %>
       <div class='position-relative'>
         <%= link_to list_path(list) do %>
-          <% if list.movies.any? %>
-            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= list.movies[0].poster_url%>)">
-              <%= list.name %>
-            </div>
-          <% else %>
-            <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('no-movies')">
-              <%= list.name %>
-            </div>
-          <% end %>
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%=list.photo.attached? ? cl_image_path(list.photo.key) : image_path('no-movies.jpg') %>)">
+            <%= list.name %>
+          </div>
         <% end  %>
       </div>
     <% end %>
