@@ -1,25 +1,75 @@
 <div class="container">
   <div class="mt-5 p-4">
-    <h1><%= @list.name.capitalize %></h1>
-    <div class="container mb-5 p-4 d-flex justify-content-center">
-      <%= link_to 'Add A Bookmark', new_list_bookmark_path(@list), class: 'btn btn-danger'%>
+    <div class="mb-5 d-flex justify-content-start align-items-center gap-5">
+      <%=@list.photo.attached? ? cl_image_tag(@list.photo.key, size: "300x200") : image_tag('no-movies.jpg', size: "300x200") %>
+      <h1 class=""><%= @list.name.capitalize %></h1>
     </div>
     <div class="container">
-      <div class="d-flex gap-5 flex-wrap justify-content-center">
-        <% @list.bookmarks.each do |bookmark| %>
-          <div class="list-card d-flex flex-column justify-content-between">
-            <div class="bookmark-card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= bookmark.movie.poster_url%>)">
-              <%= bookmark.movie.title %>
-            </div>
-            <div class="movie-description">
-              <p><%= bookmark.movie.overview %></p>
-            </div>
-            <%= link_to 'Delete', bookmark_path(bookmark),
-             data: { turbo_method: :delete, turbo_confirm: 'Delete this bookmark?'},
-             class: 'btn btn-danger'
-          %>
+      <div class="row">
+        <div class="col col-8" data-controller="list-card">
+          <div class="container mb-5 p-4 d-flex justify-content-center  gap-4">
+            <input type="button" class="btn btn-danger" value="Movies" data-action="click->list-card#displayMovies">
+            <input type="button" class="btn btn-danger" value="Reviews" data-action="click->list-card#displayReviews">
           </div>
-        <% end %>
+          <div class="d-flex gap-5 flex-wrap justify-content-center" data-list-card-target="movies">
+            <% @list.bookmarks.each do |bookmark| %>
+              <div class="list-card d-flex flex-column justify-content-between"
+                  data-controller="list-card"
+                  data-action="mouseover->list-card#mouseOver mouseout->list-card#mouseOut">
+                <div class="movie-thumbnail text-center"
+              style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= bookmark.movie.poster_url%>)"
+              data-list-card-target="thumbnail"
+            >
+                  <%= bookmark.movie.title %>
+                </div>
+                <div data-list-card-target="info" class="movie-info">
+                  <div data-list-card-target="description" class="movie-description text-center">
+                    <p><%= bookmark.movie.overview %></p>
+                  </div>
+                  <div class='p-3 border-top'>
+                    <%= link_to bookmark_path(bookmark),
+                data: { turbo_method: :delete, turbo_confirm: 'Delete this bookmark?'},
+                class: 'btn btn-danger rounded-circle' do %>
+                      <i class="fa-solid fa-trash-can"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="reviews-container invisible" data-list-card-target="reviews">
+            <% @reviews.each do |review| %>
+              <p><%= review.content %></p>
+              <p><%= review.rating %></p>
+            <% end %>
+          </div>
+        </div>
+        <div class="col col-4" data-controller="form-display">
+          <div class="container mb-5 p-4 d-flex justify-content-center  gap-4">
+            <input type="button" class="btn btn-danger" value="Add Bookmark" data-action="click->form-display#displayBookmark">
+            <input type="button" class="btn btn-danger" value="Add Review" data-action="click->form-display#displayReview">
+          </div>
+          <div class="bookmark-form justify-content-center text-light" data-form-display-target="bform">
+            <div class="">
+              <h1>Add a Bookmark</h1>
+              <%= simple_form_for([@list, @bookmark]) do |f| %>
+                <%= f.input :comment %>
+                <%= f.association :movie %>
+                <%= f.submit 'Add bookmark', class: 'btn btn-danger'%>
+              <% end %>
+            </div>
+          </div>
+          <div class="review-form invisible justify-content-center text-light" data-form-display-target="rform">
+            <div class="">
+              <h1>Add a review</h1>
+              <%= simple_form_for([@list, @review]) do |f| %>
+                <%= f.input :content %>
+                <%= f.input :rating, collection: 0..5 %>
+                <%= f.submit 'Submit', class: 'btn btn-danger' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

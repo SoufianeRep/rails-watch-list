@@ -5,9 +5,11 @@ h1, h2, h3, p {
 .list-card {
   background-color: #181818;
   border-radius: 10px;
+  position: relative;
 }
 
-.bookmark-card {
+.movie-thumbnail {
+  position: relative;
   background-size: cover;
   background-position: center;
   object-fit: contain;
@@ -22,10 +24,46 @@ h1, h2, h3, p {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-  margin-bottom: 25px;
+  z-index: 1;
 }
 
-.movie-description {
+.thumbnail-transform {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  object-fit: contain;
+  height: 140px;
   width: 240px;
-  text-justify: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  z-index: 3;
+}
+
+.movie-info {
+  position: absolute;
+  visibility: hidden;
+  width: 240px;
+}
+
+.info-transform {
+  position: absolute;
+  top: 135px;
+  opacity: 1;
+  width: 240px;
+  z-index: 2;
+  font-size: medium;
+  background-color: $dark-grey;
+  border-radius: 5px;
+  padding: 32px 16px 8px;
+}
+
+.invisible {
+  display: none;
 }
